@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foxy'Video</title>
+<link rel="icon" href="fotos/logotipo.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="locked">
+
+  <!-- ===================== INTRO: o olho da raposa ===================== -->
+  <div id="intro">
+    <div class="eye-wrap">
+      <div class="eye-glow"></div>
+      <svg class="eye-svg" viewBox="0 0 200 200">
+        <defs>
+          <radialGradient id="irisGrad" cx="50%" cy="45%" r="60%">
+            <stop offset="0%" stop-color="#ffb454"/>
+            <stop offset="55%" stop-color="#ff7a29"/>
+            <stop offset="100%" stop-color="#7a2f06"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="100" cy="100" rx="88" ry="60" fill="#0e0f13"/>
+        <circle class="iris" cx="100" cy="100" r="46" fill="url(#irisGrad)"/>
+        <circle class="pupil" cx="100" cy="100" r="4" fill="#0a0a0c"/>
+        <path class="eyelid-top" d="M4 100 Q100 20 196 100 Q100 100 4 100 Z" fill="#05060a"/>
+        <path class="eyelid-bottom" d="M4 100 Q100 180 196 100 Q100 100 4 100 Z" fill="#05060a"/>
+      </svg>
+    </div>
+    <div class="intro-word">FOXY<span>'VIDEO</span></div>
+  </div>
+  <div class="iris-mask" id="irisMask"></div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="navbar" id="navbar">
+    <div class="nav-left">
+      <a href="#" class="brand" id="brandHome">
+        <img src="fotos/logotipo.png" alt="Foxy'Video">
+        Foxy<span class="fx">'Video</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#" class="active" id="navHome">Início</a></li>
+        <li class="nav-filter-wrap">
+          <a href="#" id="navFilter">Filtrar</a>
+          <div class="filter-panel" id="filterPanel"></div>
+        </li>
+        <li><a href="#" id="navAbout">Sobre nós</a></li>
+        <li><a href="#" id="navSettings">Definições</a></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="nav-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+        <input type="text" id="searchInput" placeholder="Pesquisar títulos ou categorias...">
+      </div>
+      <div class="avatar">F</div>
+    </div>
+  </header>
+
+  <!-- mini menu mobile para filtrar (o hover não existe em touch) -->
+  <button class="mobile-filter-btn" id="mobileFilterBtn" aria-label="Filtrar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4" stroke-linecap="round"/></svg>
+  </button>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="hero"></section>
+
+  <!-- ===================== CONTEÚDO PRINCIPAL (fileiras) ===================== -->
+  <main id="mainContent"></main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer>
+    <div class="foot-brand">Foxy<span style="color:#FF7A29">'Video</span></div>
+    <div class="foot-links">
+      <a href="#" id="footAbout">Sobre nós</a>
+      <a href="#" id="footSettings">Definições</a>
+      <a href="#">Termos de utilização</a>
+      <a href="#">Privacidade</a>
+    </div>
+    <p>Site pessoal criado para reprodução de vídeos locais. Todos os direitos dos conteúdos pertencem aos seus respetivos donos.</p>
+  </footer>
+
+  <!-- ===================== MODAL DE VÍDEO (detalhes / episódios) ===================== -->
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+
+  <!-- ===================== PAINEL "SOBRE NÓS" ===================== -->
+  <div class="modal-backdrop" id="aboutBackdrop">
+    <div class="modal about-modal">
+      <button class="modal-close" id="aboutCloseBtn" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-body about-body">
+        <img class="about-logo" src="fotos/logotipo.png" alt="Foxy'Video">
+        <h2>Sobre nós</h2>
+        <p class="about-text">Site feito pela Foxy'studio para exibir vídeos, séries ou até filmes.</p>
+        <h3>Produtores</h3>
+        <p class="about-sub">(as pessoas que fazem vídeos para o nosso studio)</p>
+        <div class="producers-list">
+          <div class="producer-chip">
+            <span class="producer-name">Foxy'studio</span>
+            <span class="producer-tag">Em breve</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== PAINEL "DEFINIÇÕES" ===================== -->
+  <div class="modal-backdrop" id="settingsBackdrop">
+    <div class="modal settings-modal">
+      <button class="modal-close" id="settingsCloseBtn" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-body">
+        <h2>Definições</h2>
+
+        <div class="setting-row">
+          <div>
+            <h4>Autoplay ao reproduzir</h4>
+            <p>Começar o vídeo automaticamente ao abrir o leitor.</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="settingAutoplay" checked>
+            <span class="switch-track"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <h4>Reduzir animações</h4>
+            <p>Diminui movimento e efeitos visuais no site.</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="settingReduceMotion">
+            <span class="switch-track"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <h4>Limpar "A minha lista" (gostos)</h4>
+            <p>Remove todos os vídeos marcados como gostados neste navegador.</p>
+          </div>
+          <button class="btn btn-info small" id="settingClearLikes">Limpar</button>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <h4>Versão</h4>
+            <p>Foxy'Video — site local para reprodução de vídeos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== PLAYER FULLSCREEN CUSTOMIZADO ===================== -->
+  <div class="player-overlay" id="playerOverlay">
+    <video id="playerVideo" playsinline></video>
+
+    <div class="player-top-bar" id="playerTopBar">
+      <button class="player-back" id="playerBackBtn" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="player-title" id="playerTitle"></div>
+      <div></div>
+    </div>
+
+    <button class="player-center-btn" id="playerCenterBtn" aria-label="Reproduzir/Pausar">
+      <svg id="playerCenterIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+
+    <div class="player-bottom-bar" id="playerBottomBar">
+      <div class="player-progress-wrap" id="playerProgressWrap">
+        <div class="player-progress-buffer" id="playerBuffer"></div>
+        <div class="player-progress-fill" id="playerProgressFill"></div>
+        <div class="player-progress-handle" id="playerProgressHandle"></div>
+      </div>
+      <div class="player-controls-row">
+        <div class="player-controls-left">
+          <button class="player-btn" id="playerPlayBtn" aria-label="Reproduzir/Pausar">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <button class="player-btn" id="playerBack10" aria-label="Recuar 10s">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>
+          </button>
+          <button class="player-btn" id="playerFwd10" aria-label="Avançar 10s">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5V2l5 4-5 4V7a5 5 0 1 0 5 5h2a7 7 0 1 1-7-7z"/></svg>
+          </button>
+          <div class="player-volume">
+            <button class="player-btn" id="playerMuteBtn" aria-label="Som">
+              <svg id="playerVolIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M4 9v6h4l5 5V4L8 9H4z"/></svg>
+            </button>
+            <input type="range" id="playerVolume" min="0" max="1" step="0.05" value="1">
+          </div>
+          <span class="player-time" id="playerTime">0:00 / 0:00</span>
+        </div>
+        <div class="player-controls-right">
+          <button class="player-btn" id="playerEpisodesBtn" aria-label="Episódios" title="Episódios">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7" stroke-linecap="round"/></svg>
+          </button>
+          <button class="player-btn" id="playerFullscreenBtn" aria-label="Ecrã inteiro">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="player-episodes-panel" id="playerEpisodesPanel"></div>
+  </div>
+
+  <!-- ===================== TOAST ===================== -->
+  <div class="toast" id="toast">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Adicionado</span>
+  </div>
+
+  <script src="Notas.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
